@@ -8,51 +8,187 @@
 	<link rel="icon" href="favicon.ico">
 	<script src="samples.js"></script>
 	<script src="utils.js"></script>
+  <script src="../dist/Chart.bundle.js"></script>
+  <script src="utils.js"></script>
+  <style>
+  canvas {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+  </style>
 	<title>Luftbedrohnung</title>
 </head>
+
+
 <body>
 	<div class="content">
 		<div class="header">
 			<div class="chartjs-title">Luftbedrohnung</div>
 			<div class="chartjs-caption">Die Drohne, die die Luftqualität live misst.</div>
-			<div class="chartjs-links">
-				<a class="btn btn-chartjs" href="http://www.chartjs.org">Website</a>
-				<a class="btn btn-docs" href="http://www.chartjs.org/docs">Documentation</a>
-				<a class="btn btn-gh" href="https://github.com/chartjs/Chart.js">GitHub</a>
-			</div>
 		</div>
 
-		<div id="categories" class="samples-categories"></div>
+    <div id="container" style="width: 75%;" position = right>
+      <canvas id="canvas1"></canvas>
+    </div>
+    <button id="randomizeData">Der soll weg</button>
+
+		<div id="container" style="width:75%;">
+			<canvas id="canvas2"></canvas>
+		</div>
+
+
 	</div>
 
 	<script>
-		function createCategory(item) {
-			var el = document.createElement('div');
-			el.className = 'samples-category';
-			el.innerHTML =
-				'<div class="title">' + item.title + '</div>' +
-				'<div class="items"></div>';
-			return el;
-		}
+      var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      var color = Chart.helpers.color;
+      var barChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+          label: 'Dataset 1',
+          backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+          borderColor: window.chartColors.red,
+          borderWidth: 1,
+          data: [
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor()
+          ]
+        }, {
+          label: 'Dataset 2',
+          backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+          borderColor: window.chartColors.blue,
+          borderWidth: 1,
+          data: [
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor()
+          ]
+        }]
 
-		function createEntry(item) {
-			var el = document.createElement('div');
-			el.className = 'samples-entry';
-			el.innerHTML = '<a class="title" href="' + item.path + '">' + item.title + '</a>';
-			return el;
-		}
+      };
 
-		var categories = document.getElementById('categories');
-		Samples.items.forEach(function(item) {
-			var category = createCategory(item);
-			var children = category.getElementsByClassName('items')[0];
+      window.onload = function() {
+        var ctx = document.getElementById('canvas1').getContext('2d');
+        window.myBar = new Chart(ctx, {
+          type: 'bar',
+          data: barChartData,
+          options: {
+            responsive: true,
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'balkendiagramm'
+            }
+          }
+        });
+				var ctx = document.getElementById('canvas2').getContext('2d');
+				window.myLine = new Chart(ctx, config);
 
-			(item.items || []).forEach(function(item2) {
-				children.appendChild(createEntry(item2));
+      };
+
+      document.getElementById('randomizeData').addEventListener('click', function() {
+        var zero = Math.random() < 0.2 ? true : false;
+        barChartData.datasets.forEach(function(dataset) {
+          dataset.data = dataset.data.map(function() {
+            return zero ? 0.0 : randomScalingFactor();
+          });
+
+        });
+        window.myBar.update();
+      });
+
+			var config = {
+				type: 'line',
+				data: {
+					labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+					datasets: [{
+						label: '',
+						backgroundColor: window.chartColors.red,
+						borderColor: window.chartColors.red,
+						data: [
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor()
+						],
+						fill: true,
+					}, {
+						label: 'My Second dataset',
+						fill: true,
+						backgroundColor: window.chartColors.blue,
+						borderColor: window.chartColors.blue,
+						data: [
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor()
+						],
+					}]
+				},
+				options: {
+					responsive: true,
+					title: {
+						display: true,
+						text: 'Temperatur'
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: false,
+					},
+					hover: {
+						mode: 'nearest',
+						intersect: true
+					},
+					scales: {
+						xAxes: [{
+							display: true,
+							scaleLabel: {
+								display: true,
+								labelString: 'Month'
+							}
+						}],
+						yAxes: [{
+							display: true,
+							scaleLabel: {
+								display: true,
+								labelString: 'Value'
+							}
+						}]
+					}
+				}
+			};
+
+			document.getElementById('randomizeData').addEventListener('click', function() {
+				config.data.datasets.forEach(function(dataset) {
+					dataset.data = dataset.data.map(function() {
+						return randomScalingFactor();
+					});
+
+				});
+
+				window.myLine.update();
 			});
 
-			categories.appendChild(category);
-		});
+      var colorNames = Object.keys(window.chartColors);
+
 	</script>
 </body>
 </html>
