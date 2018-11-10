@@ -1,0 +1,33 @@
+#include <Wire.h>
+#define address 0x4F
+int counter;
+
+void setup()
+{
+  Wire.begin();
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  Wire.beginTransmission(address);
+  Wire.write(0x00);
+  Wire.requestFrom(address, 2);
+
+  int temperature;
+  if (Wire.available()) {
+     //temperature = Wire.read();
+      
+         int a = Wire.read();
+          int b = Wire.read();
+            float temp = a;
+  temp=temp+((float)b/1024.0);  
+    Serial.print("Temp: ");  
+  Serial.print(temp);  
+Serial.print('\n');
+  }
+  Wire.endTransmission();
+  Serial.println("-----------");
+  //Serial.println(temperature);
+ delay(1000);
+}
