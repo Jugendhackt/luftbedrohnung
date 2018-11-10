@@ -48,7 +48,7 @@
 
 		<div class="flex-container">
 			<div>
-				<div id="container" style="width: 100;">
+				<div id="container" style="width: 100%;">
 					<canvas id="canvas1"></canvas>
 				</div>
 				<p id="randomizeData"></p>
@@ -58,14 +58,24 @@
 					<canvas id="canvas2"></canvas>
 				</div>
 			</div>
-			<div id="canvas-holder" style="width:100%">
-				<canvas id="chart-area"></canvas>
-			</div>
 		</div>
 
 		<div class="flex-container">
-			<div>1</div>
-			<div>2</div>
+			<div>
+				<div>
+					<div id="container" style="width:100%;">
+						<canvas id="canvas3"></canvas>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<div>
+					<div id="container" style="width:100%;">
+						<canvas id="canvas4"></canvas>
+					</div>
+				</div>
+			</div>
 		</div>
 
 
@@ -154,6 +164,14 @@
         });
 				var ctx = document.getElementById('canvas2').getContext('2d');
 				window.myLine = new Chart(ctx, config);
+
+				var ctx = document.getElementById('canvas3').getContext('2d');
+				window.myLine = new Chart(ctx, config);
+
+				var ctx = document.getElementById('canvas4').getContext('2d');
+				window.myLine = new Chart(ctx, config);
+
+
 
 				var ctx = document.getElementById('chart-area').getContext('2d');
 				window.myPie = new Chart(ctx, config);
