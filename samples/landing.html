@@ -16,25 +16,53 @@
     -webkit-user-select: none;
     -ms-user-select: none;
   }
+
+	.flex-container {
+		display: flex;
+
+		width: 100%;
+	}
+
+	.flex-container > div {
+
+		width: 100%;
+		margin: 10px;
+		padding: 20px;
+		font-size: 30px;
+	}
+
   </style>
 	<title>Luftbedrohnung</title>
 </head>
 
 
 <body>
+
+
+
 	<div class="content">
 		<div class="header">
 			<div class="chartjs-title">Luftbedrohnung</div>
 			<div class="chartjs-caption">Die Drohne, die die Luftqualität live misst.</div>
 		</div>
 
-    <div id="container" style="width: 75%;">
-      <canvas id="canvas1"></canvas>
-    </div>
-    <button id="randomizeData">Der soll weg</button>
+		<div class="flex-container">
+			<div>
+				<div id="container" style="width: 75%;">
+					<canvas id="canvas1"></canvas>
+				</div>
+				<button id="randomizeData">Der soll weg</button>
+			</div>
+			<div>
+				<div id="container" style="width:75%;">
+					<canvas id="canvas2"></canvas>
+				</div>
+			</div>
+		</div>
 
-		<div id="container" style="width:75%;">
-			<canvas id="canvas2"></canvas>
+		<div class="flex-container">
+			<div>1</div>
+			<div>2</div>
 		</div>
 
 
