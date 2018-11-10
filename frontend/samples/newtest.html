@@ -33,6 +33,12 @@
   				<canvas id="myChartRelH"></canvas>
   			</div>
       </div>
+      <!--temperature-->
+      <div>
+        <div id="container" style="width: 100%;">
+					<canvas id="myChartTemp"></canvas>
+				</div>
+      </div>
     </div>
 	</div>
 
@@ -108,6 +114,38 @@
             text: 'Relative Luftfeuchtigkeit'
           }
         }
+      });
+      //temperature
+      var ctxTemp = document.getElementById("myChartTemp");
+      var myChartTemp = new Chart(ctxTemp, {
+          type: 'line',
+          data: {
+              labels: ["00:00", "02:00", "04:00", "06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00"],
+              datasets: [{
+                 labels: [],
+                  data: [12, 12, 12, 11, 11, 12, 14, 16, 15, 13, 13, 13, 13],
+                  backgroundColor: [
+                      'rgba(0, 0, 0, 0)'
+                  ],
+                  borderColor: [
+                      'rgba(255,99,132,1)'
+                  ],
+                  borderWidth: 3
+              }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Temperatur'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+          }
       });
 	</script>
 </body>
