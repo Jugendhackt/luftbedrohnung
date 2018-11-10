@@ -10,6 +10,23 @@
   <script src="../dist/Chart.bundle.js"></script>
   <script src="utils.js"></script>
 	<title>Luftbedrohnung</title>
+  <style>
+    .flex-container {
+      display: flex;
+      overflow-x: scroll;
+      min-width: 200px;
+      width: 100%;
+    }
+
+    .flex-container > div {
+      min-width: 400px;
+
+        width: 100%;
+        margin: 10px;
+        padding: 20px;
+        font-size: 30px;
+      }
+  </style>
 </head>
 
 
@@ -33,10 +50,17 @@
   				<canvas id="myChartRelH"></canvas>
   			</div>
       </div>
+    </div>
+		<div class="flex-container">
       <!--temperature-->
       <div>
         <div id="container" style="width: 100%;">
 					<canvas id="myChartTemp"></canvas>
+				</div>
+      </div>
+      <div>
+        <div id="container" style="width: 100%;">
+					<!--another diagramm-->
 				</div>
       </div>
     </div>
@@ -50,10 +74,10 @@
       var myChartAbsH = new Chart(ctxAbsH, {
           type: 'bar',
           data: {
-              labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+              labels: ["vor 5min", "vor 4min", "vor 3min", "vor 2min", "vor 1min", "jetzt"],
               datasets: [{
                   label: 'Luftfeuchtigkeit in g/m^3',
-                  data: [12, 19, 15, 8, 5, 20],
+                  data: [12.7, 13.2, 8.6, 9.8, 9.9, 10.1],
                   backgroundColor: [
                       'rgba(54, 162, 235, 0.2)',
                       'rgba(54, 162, 235, 0.2)',
@@ -96,7 +120,7 @@
             labels: [],
             datasets: [{
                 label: 'Relative Luftfeuchtigkeit',
-                data: [60, 40],
+                data: [57, 43],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(0, 0, 0, 0)'
