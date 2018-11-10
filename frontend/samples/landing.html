@@ -15,7 +15,7 @@
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-  }
+  	}
 
 	.flex-container {
 		display: flex;
@@ -27,20 +27,23 @@
 	.flex-container > div {
 		min-width: 400px;
 
-		width: 100%;
-		margin: 10px;
-		padding: 20px;
-		font-size: 30px;
-	}
+			width: 100%;
+			margin: 10px;
+			padding: 20px;
+			font-size: 30px;
+		}
 
   </style>
+
 	<title>Luftbedrohnung</title>
+
 </head>
 
 
 <body>
 
 	<div class="content">
+
 		<div class="header">
 			<div class="chartjs-title">Luftbedrohnung</div>
 			<div class="chartjs-caption">Die Drohne, die die Luftqualität live misst.</div>
@@ -63,17 +66,17 @@
 		<div class="flex-container">
 			<div>
 				<div>
-					<div id="container" style="width:100%;">
-						<canvas id="canvas3"></canvas>
+					<div id="container1" style="width:100%;">
+						<div id="canvas-holder" style="width:100%">
+							<canvas id="chart-area"></canvas>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<div>
 				<div>
-					<div id="container" style="width:100%;">
-						<canvas id="canvas4"></canvas>
-					</div>
+					<!-- Hier kommt noch ein diagramm hin -->
 				</div>
 			</div>
 		</div>
@@ -141,14 +144,14 @@
 					]
 				},
 				options: {
-					responsive: true
+					responsive: false,
 				}
 			};
 
 
       window.onload = function() {
-        var ctx = document.getElementById('canvas1').getContext('2d');
-        window.myBar = new Chart(ctx, {
+        var ctx1 = document.getElementById('canvas1').getContext('2d');
+        window.myBar = new Chart(ctx1, {
           type: 'bar',
           data: barChartData,
           options: {
@@ -162,19 +165,14 @@
             }
           }
         });
-				var ctx = document.getElementById('canvas2').getContext('2d');
-				window.myLine = new Chart(ctx, config);
+				var ctx2 = document.getElementById('canvas2').getContext('2d');
+				window.myLine = new Chart(ctx2, config);
 
-				var ctx = document.getElementById('canvas3').getContext('2d');
-				window.myLine = new Chart(ctx, config);
+				var ctx3 = document.getElementById('chart-area').getContext('2d');
+				window.myPie = new Chart(ctx3, config);
 
-				var ctx = document.getElementById('canvas4').getContext('2d');
-				window.myLine = new Chart(ctx, config);
-
-
-
-				var ctx = document.getElementById('chart-area').getContext('2d');
-				window.myPie = new Chart(ctx, config);
+			//	var ctx = document.getElementById('canvas4').getContext('2d');
+			//	window.myLine = new Chart(ctx, config);
 
 
       };

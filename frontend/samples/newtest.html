@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="icon" href="favicon.png">
+	<script src="samples.js"></script>
+	<script src="utils.js"></script>
+  <script src="../dist/Chart.bundle.js"></script>
+  <script src="utils.js"></script>
+	<title>Luftbedrohnung</title>
+</head>
+
+
+<body>
+	<div class="content">
+		<div class="header">
+			<div class="chartjs-title">Luftbedrohnung</div>
+			<div class="chartjs-caption">Die Drohne, die die Luftqualität live misst.</div>
+		</div>
+    <!--grid system-->
+		<div class="flex-container">
+      <!--absolute humidity-->
+      <div>
+        <div id="container" style="width: 100%;">
+					<canvas id="myChartAbsH"></canvas>
+				</div>
+      </div>
+      <!--relative humidity-->
+      <div>
+        <div id="container" style="width: 100%;">
+  				<canvas id="myChartRelH"></canvas>
+  			</div>
+      </div>
+    </div>
+	</div>
+
+
+  <script>
+
+      //absolute humidity
+      var ctxAbsH = document.getElementById("myChartAbsH");
+      var myChartAbsH = new Chart(ctxAbsH, {
+          type: 'bar',
+          data: {
+              labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+              datasets: [{
+                  label: 'Luftfeuchtigkeit in g/m^3',
+                  data: [12, 19, 15, 8, 5, 20],
+                  backgroundColor: [
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(54, 162, 235, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(54, 162, 235, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              title: {
+                display: true,
+                text: 'Absolute Luftfeuchigkeit'
+              },
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
+          }
+      });
+
+      //relative humidity
+      var ctxRelH = document.getElementById("myChartRelH");
+      var myChartRelH = new Chart(ctxRelH,{
+        type: 'pie',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Relative Luftfeuchtigkeit',
+                data: [60, 40],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(0, 0, 0, 0)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(0, 0, 0, 0)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Relative Luftfeuchtigkeit'
+          }
+        }
+      });
+	</script>
+</body>
+</html>
