@@ -98,11 +98,6 @@ a:hover {
 }
 
 .chartjs-title::before {
-	background-image: url(logo.svg);
-	background-position: left center;
-	background-repeat: no-repeat;
-	background-size: 40px;
-	content: 'Chart.js | ';
 	color: #f27173;
 	font-weight: 600;
 	padding-left: 48px;
