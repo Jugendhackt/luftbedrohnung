@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="icon" href="favicon.png">
+	<script src="samples.js"></script>
+	<script src="utils.js"></script>
+  <script src="../dist/Chart.bundle.js"></script>
+  <script src="utils.js"></script>
+  <style>
+  canvas {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+
+	.flex-container {
+		display: flex;
+
+		width: 100%;
+	}
+
+	.flex-container > div {
+
+		width: 100%;
+		margin: 10px;
+		padding: 20px;
+		font-size: 30px;
+	}
+
+  </style>
+	<title>Luftbedrohnung</title>
+</head>
+
+
+<body>
+
+
+
+	<div class="content">
+		<div class="header">
+			<div class="chartjs-title">Luftbedrohnung</div>
+			<div class="chartjs-caption">Die Drohne, die die Luftqualität live misst.</div>
+		</div>
+
+		<div class="flex-container">
+			<div>
+				<div id="container" style="width: 100;">
+					<canvas id="canvas1"></canvas>
+				</div>
+				<p id="randomizeData"></p>
+			</div>
+			<div>
+				<div id="container" style="width:100%;">
+					<canvas id="canvas2"></canvas>
+				</div>
+			</div>
+		</div>
+
+		<div class="flex-container">
+			<div>1</div>
+			<div>2</div>
+		</div>
+
+
+	</div>
+
+	<script>
+      var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      var color = Chart.helpers.color;
+      var barChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+          label: 'Dataset 1',
+          backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+          borderColor: window.chartColors.red,
+          borderWidth: 1,
+          data: [
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor()
+          ]
+        }, {
+          label: 'Dataset 2',
+          backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+          borderColor: window.chartColors.blue,
+          borderWidth: 1,
+          data: [
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor()
+          ]
+        }]
+
+      };
+
+      window.onload = function() {
+        var ctx = document.getElementById('canvas1').getContext('2d');
+        window.myBar = new Chart(ctx, {
+          type: 'bar',
+          data: barChartData,
+          options: {
+            responsive: true,
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'balkendiagramm'
+            }
+          }
+        });
+				var ctx = document.getElementById('canvas2').getContext('2d');
+				window.myLine = new Chart(ctx, config);
+
+      };
+
+      document.getElementById('randomizeData').addEventListener('click', function() {
+        var zero = Math.random() < 0.2 ? true : false;
+        barChartData.datasets.forEach(function(dataset) {
+          dataset.data = dataset.data.map(function() {
+            return zero ? 0.0 : randomScalingFactor();
+          });
+
+        });
+        window.myBar.update();
+      });
+
+			var config = {
+				type: 'line',
+				data: {
+					labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+					datasets: [{
+						label: '',
+						backgroundColor: window.chartColors.red,
+						borderColor: window.chartColors.red,
+						data: [
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor()
+						],
+						fill: false,
+					}, ]
+				},
+				options: {
+					responsive: true,
+					title: {
+						display: true,
+						text: 'Temperatur'
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: false,
+					},
+					hover: {
+						mode: 'nearest',
+						intersect: true
+					},
+					scales: {
+						xAxes: [{
+							display: true,
+							scaleLabel: {
+								display: true,
+								labelString: 'Month'
+							}
+						}],
+						yAxes: [{
+							display: true,
+							scaleLabel: {
+								display: true,
+								labelString: 'Value'
+							}
+						}]
+					}
+				}
+			};
+
+			document.getElementById('randomizeData').addEventListener('click', function() {
+				config.data.datasets.forEach(function(dataset) {
+					dataset.data = dataset.data.map(function() {
+						return randomScalingFactor();
+					});
+
+				});
+
+				window.myLine.update();
+			});
+
+      var colorNames = Object.keys(window.chartColors);
+
+	</script>
+</body>
+</html>
