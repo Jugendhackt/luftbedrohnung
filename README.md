@@ -1,6 +1,6 @@
 # Luft ist toll.
 
-#Gute Luft ist toller.
+## Gute Luft ist toller.
 
 Wir entwickeln eine Drohne, die die Qualität der Luft um uns herum automatisiert aufzeichnet und anzeigt.
 
