@@ -27,7 +27,7 @@ var server = http.createServer(function (req, res) {
   fs.appendFile('log.txt', txt+"\n", function (err) {
     if (err) console.log(err);
   });*/
-  res.end(txt);
+  res.end();
 });
 
 
