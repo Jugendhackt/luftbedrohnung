@@ -23,11 +23,11 @@ var server = http.createServer(function (req, res) {
       console.log("Number of documents inserted: " + res.insertedCount);
     });
 
-  var txt = q.tmp + ";" + q.hum;
+  /*var txt = q.tmp + ";" + q.hum;
   fs.appendFile('log.txt', txt+"\n", function (err) {
     if (err) console.log(err);
-  });
-  res.end(txt);
+  });*/
+  res.end();
 });
 
 
