@@ -109,7 +109,8 @@
                           beginAtZero:true
                       }
                   }]
-              }
+              },
+              events: []
           }
       });
 
@@ -137,7 +138,8 @@
           title: {
             display: true,
             text: 'Relative Luftfeuchtigkeit'
-          }
+          },
+          events: []
         }
       });
       //temperature
@@ -169,7 +171,8 @@
                         beginAtZero:true
                     }
                 }]
-            }
+            },
+            events: []
           }
       });
       //air pollution
@@ -200,9 +203,10 @@
                     ticks: {
                         beginAtZero:true
                     }
-                }]
+                }],
             },
-            cubicInterpolationMode: 'monotone'
+            cubicInterpolationMode: 'monotone',
+            events: []
           }
       });
 	</script>
