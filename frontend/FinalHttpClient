@@ -1,0 +1,98 @@
+//BasicHttpClient
+#include <Arduino.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266WiFiMulti.h>
+#include <ESP8266HTTPClient.h>
+#define USE_SERIAL Serial
+
+ESP8266WiFiMulti WiFiMulti;
+
+//DHT_ESP
+#include "DHTesp.h"
+#ifdef ESP32
+#pragma message(THIS EXAMPLE IS FOR ESP8266 ONLY!)
+#error Select ESP8266 board.
+#endif
+
+DHTesp dht;
+
+
+void setup() 
+{
+  //BasicHttpClient
+  USE_SERIAL.begin(115200);
+  USE_SERIAL.println();
+  //USE_SERIAL.println();
+  //USE_SERIAL.println();
+
+  for (uint8_t t = 4; t > 0; t--) 
+  {
+    USE_SERIAL.printf("[SETUP] WAIT %d...\n", t);
+    USE_SERIAL.flush();
+    delay(1000);
+  }
+
+  WiFi.mode(WIFI_STA);
+  WiFiMulti.addAP("jugendhackt.de-legacy", "");
+
+  //DHT_ESP
+  //Serial.begin(115200);
+  Serial.println();
+  Serial.println("Status\tHumidity (%)\tTemperature (C)\tHeatIndex [HI](C)");
+  String thisBoard= ARDUINO_BOARD;
+  Serial.println(thisBoard);
+  dht.setup(4, DHTesp::DHT11);
+}
+
+void loop() {
+  //DHT_ESP
+  delay(dht.getMinimumSamplingPeriod());
+
+  float humidity = dht.getHumidity();
+  float temperature = dht.getTemperature();
+
+  Serial.print(dht.getStatusString());
+  Serial.print("\t");
+  Serial.print(humidity, 1);
+  Serial.print(" %");
+  Serial.print("\t\t");
+  Serial.print(temperature, 1);
+  Serial.print(" C");
+  Serial.print("\t\t");
+  Serial.print(dht.computeHeatIndex(temperature, humidity, false), 1);
+  Serial.print(" C");
+  Serial.println();
+  
+  // BasicHttpClient
+  if ((WiFiMulti.run() == WL_CONNECTED))
+  {
+
+    HTTPClient http;
+
+    USE_SERIAL.print("[HTTP] begin...\n");
+    String adresse = "http://172.22.42.97:8080/?tmp="+String(temperature)+"&hum="+String(humidity);
+    USE_SERIAL.println (adresse);
+    http.begin(adresse);
+    
+
+    USE_SERIAL.print("[HTTP] GET...\n");
+
+    int httpCode = http.GET();
+
+    if (httpCode > 0) 
+    {
+      USE_SERIAL.printf("[HTTP] GET... code: %d\n", httpCode);
+
+      if (httpCode == HTTP_CODE_OK) {
+        String payload = http.getString();
+        USE_SERIAL.println(payload);
+      }
+    } else {
+      USE_SERIAL.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+    }
+
+    http.end();
+  }
+
+  delay(10000);
+}
