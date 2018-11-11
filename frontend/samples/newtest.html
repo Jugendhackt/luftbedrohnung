@@ -31,11 +31,18 @@
 
 
 <body>
+  <br>
+  <br>
 	<div class="content">
+    <br>
+    <br>
 		<div class="header">
 			<div class="chartjs-title">Luftbedrohnung</div>
 			<div class="chartjs-caption">Die Drohne, die die Luftqualität live misst.</div>
 		</div>
+    <br>
+    <br>
+    <br>
     <!--grid system-->
 		<div class="flex-container">
       <!--absolute humidity-->
@@ -152,12 +159,13 @@
                  label: 'Temperatur in °C',
                   data: [12, 12, 12, 11, 11, 12, 14, 16, 15, 13, 13, 13, 13],
                   backgroundColor: [
-                      'rgba(0, 0, 0, 0)'
+                      'rgba(255,99,132,1)'
                   ],
                   borderColor: [
                       'rgba(255,99,132,1)'
                   ],
-                  borderWidth: 3
+                  borderWidth: 3,
+                  fill: false
               }]
           },
           options: {
@@ -185,12 +193,13 @@
                  label: 'Feinstaub in µq/m^3',
                   data: [40, 5, 20, 100, 18, 57, 21, 38, 82, 16, 30, 50, 142, 43],
                   backgroundColor: [
-                      'rgba(0, 0, 0, 0)'
+                      'rgba(0, 0, 0, 1)'
                   ],
                   borderColor: [
                       'rgba(0, 0, 0, 1)'
                   ],
-                  borderWidth: 3
+                  borderWidth: 3,
+                  fill: false
               }]
           },
           options: {
