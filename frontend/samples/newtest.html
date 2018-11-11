@@ -10,6 +10,23 @@
   <script src="../dist/Chart.bundle.js"></script>
   <script src="utils.js"></script>
 	<title>Luftbedrohnung</title>
+  <style>
+    .flex-container {
+      display: flex;
+      overflow-x: scroll;
+      min-width: 200px;
+      width: 100%;
+    }
+
+    .flex-container > div {
+      min-width: 400px;
+
+        width: 100%;
+        margin: 10px;
+        padding: 20px;
+        font-size: 30px;
+      }
+  </style>
 </head>
 
 
@@ -27,11 +44,25 @@
 					<canvas id="myChartAbsH"></canvas>
 				</div>
       </div>
+      <!--air pollution-->
+      <div>
+        <div id="container" style="width: 100%;">
+					<canvas id="myChartAir"></canvas>
+				</div>
+      </div>
+    </div>
+		<div class="flex-container">
       <!--relative humidity-->
       <div>
         <div id="container" style="width: 100%;">
   				<canvas id="myChartRelH"></canvas>
   			</div>
+      </div>
+      <!--temperature-->
+      <div>
+        <div id="container" style="width: 100%;">
+					<canvas id="myChartTemp"></canvas>
+				</div>
       </div>
     </div>
 	</div>
@@ -44,10 +75,10 @@
       var myChartAbsH = new Chart(ctxAbsH, {
           type: 'bar',
           data: {
-              labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+              labels: ["vor 5min", "vor 4min", "vor 3min", "vor 2min", "vor 1min", "jetzt"],
               datasets: [{
                   label: 'Luftfeuchtigkeit in g/m^3',
-                  data: [12, 19, 15, 8, 5, 20],
+                  data: [12.7, 13.2, 8.6, 9.8, 9.9, 10.1],
                   backgroundColor: [
                       'rgba(54, 162, 235, 0.2)',
                       'rgba(54, 162, 235, 0.2)',
@@ -90,7 +121,7 @@
             labels: [],
             datasets: [{
                 label: 'Relative Luftfeuchtigkeit',
-                data: [60, 40],
+                data: [57, 43],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(0, 0, 0, 0)'
@@ -108,6 +139,71 @@
             text: 'Relative Luftfeuchtigkeit'
           }
         }
+      });
+      //temperature
+      var ctxTemp = document.getElementById("myChartTemp");
+      var myChartTemp = new Chart(ctxTemp, {
+          type: 'line',
+          data: {
+              labels: ["00:00", "02:00", "04:00", "06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00"],
+              datasets: [{
+                 label: 'Temperatur in °C',
+                  data: [12, 12, 12, 11, 11, 12, 14, 16, 15, 13, 13, 13, 13],
+                  backgroundColor: [
+                      'rgba(0, 0, 0, 0)'
+                  ],
+                  borderColor: [
+                      'rgba(255,99,132,1)'
+                  ],
+                  borderWidth: 3
+              }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Temperatur'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+          }
+      });
+      //air pollution
+      var ctxAir = document.getElementById("myChartAir");
+      var myChartAir = new Chart(ctxAir, {
+          type: 'line',
+          data: {
+              labels: ["01.05.", "02.05.", "03.05.", "04.05.", "05.05.", "06.05.", "07.05.", "08.05.", "09.05.", "10.05.", "11.05.", "12.05.", "13.05.", "14.05."],
+              datasets: [{
+                 label: 'Feinstaub in µq/m^3',
+                  data: [40, 5, 20, 100, 18, 57, 21, 38, 82, 16, 30, 50, 142, 43],
+                  backgroundColor: [
+                      'rgba(0, 0, 0, 0)'
+                  ],
+                  borderColor: [
+                      'rgba(0, 0, 0, 1)'
+                  ],
+                  borderWidth: 3
+              }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Beispielgraph Luftverschmutzung'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            },
+            cubicInterpolationMode: 'monotone'
+          }
       });
 	</script>
 </body>
