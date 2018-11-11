@@ -44,23 +44,24 @@
 					<canvas id="myChartAbsH"></canvas>
 				</div>
       </div>
+      <!--air pollution-->
+      <div>
+        <div id="container" style="width: 100%;">
+					<canvas id="myChartAir"></canvas>
+				</div>
+      </div>
+    </div>
+		<div class="flex-container">
       <!--relative humidity-->
       <div>
         <div id="container" style="width: 100%;">
   				<canvas id="myChartRelH"></canvas>
   			</div>
       </div>
-    </div>
-		<div class="flex-container">
       <!--temperature-->
       <div>
         <div id="container" style="width: 100%;">
 					<canvas id="myChartTemp"></canvas>
-				</div>
-      </div>
-      <div>
-        <div id="container" style="width: 100%;">
-					<!--another diagramm-->
 				</div>
       </div>
     </div>
@@ -146,7 +147,7 @@
           data: {
               labels: ["00:00", "02:00", "04:00", "06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00"],
               datasets: [{
-                 labels: [],
+                 label: 'Temperatur in °C',
                   data: [12, 12, 12, 11, 11, 12, 14, 16, 15, 13, 13, 13, 13],
                   backgroundColor: [
                       'rgba(0, 0, 0, 0)'
@@ -169,6 +170,39 @@
                     }
                 }]
             }
+          }
+      });
+      //air pollution
+      var ctxAir = document.getElementById("myChartAir");
+      var myChartAir = new Chart(ctxAir, {
+          type: 'line',
+          data: {
+              labels: ["01.05.", "02.05.", "03.05.", "04.05.", "05.05.", "06.05.", "07.05.", "08.05.", "09.05.", "10.05.", "11.05.", "12.05.", "13.05.", "14.05."],
+              datasets: [{
+                 label: 'Feinstaub in µq/m^3',
+                  data: [40, 5, 20, 100, 18, 57, 21, 38, 82, 16, 30, 50, 142, 43],
+                  backgroundColor: [
+                      'rgba(0, 0, 0, 0)'
+                  ],
+                  borderColor: [
+                      'rgba(0, 0, 0, 1)'
+                  ],
+                  borderWidth: 3
+              }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Beispielgraph Luftverschmutzung'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            },
+            cubicInterpolationMode: 'monotone'
           }
       });
 	</script>
